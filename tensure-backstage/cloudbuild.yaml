@@ -1,0 +1,10 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        DOCKER_BUILDKIT=1 docker build --progress=plain -t us-central1-docker.pkg.dev/vamsi-krishna-sandbox/backstage/backstage  .
+
+images:
+  - 'us-central1-docker.pkg.dev/vamsi-krishna-sandbox/backstage/backstage:latest'

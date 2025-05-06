@@ -1,0 +1,144 @@
+app:
+  title: Tensure Backstage App
+  baseUrl: http://localhost:7007
+
+organization:
+  name: Tensure Test 
+
+backend:
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/auth/service-to-service-auth for
+  # information on the format
+  auth:
+    keys:
+      - secret: BCNHCu7pLQ91SKaNwhSa0zEODmSlIKve
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+    # Uncomment the following host directive to bind to specific interfaces
+    host: 0.0.0.0
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: https://backstage.ioinfo.shop
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  database:
+    client: pg
+    connection:
+      host: 35.225.63.118
+      port: 5432
+      user: backstage
+      password: backstage
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+integrations:
+  github:
+    - host: github.com
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+      token: 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
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+
+proxy:
+  ### Example for how to add a proxy endpoint for the frontend.
+  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
+  # endpoints:
+  #   '/test':
+  #     target: 'https://example.com'
+  #     changeOrigin: true
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'local' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+# auth:
+#   # environment: production
+#   # see https://backstage.io/docs/auth/ to learn about auth providers
+#   providers:
+#      github:
+#       development:
+#         clientId: Ov23liDmZ3gD3qBl3qqF
+#         clientSecret: 64bfaeafd230cd0fbcdf0854ae0e3b6783dedb5e
+#         ## uncomment if using GitHub Enterprise
+#         # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
+#         ## uncomment to set lifespan of user session
+#         # sessionDuration: { hours: 24 } # supports `ms` library format (e.g. '24h', '2 days'), ISO duration, "human duration" as used in code
+#         signIn:
+#           resolvers:
+#             # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers
+#             - resolver: usernameMatchingUserEntityName
+#     # See https://backstage.io/docs/auth/guest/provider
+#     # guest: {}
+
+auth:
+  environment: production
+  providers:
+    google:
+      production:
+        clientId: 131024917947-g5ngacsht283gdiv5au14cs8c2htl0r5.apps.googleusercontent.com
+        clientSecret: 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
+        ## uncomment to set lifespan of user session
+        # sessionDuration: { hours: 24 } # supports `ms` library format (e.g. '24h', '2 days'), ISO duration, "human duration" as used in code
+        signIn:
+          resolvers:
+            # See https://backstage.io/docs/auth/google/provider#resolvers for more resolvers
+            - resolver: emailMatchingUserEntityProfileEmail
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Template, User, Group, Component, System, API, Resource, Location]
+  locations:
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    - type: file
+      target: /app/entities/users.yaml
+      # target: /Users/vamsikrishna/prod-backstage/backstage-application/tensure-backstage/catalog/entities/users.yaml
+
+    - type: file
+      target: /app/entities/groups.yaml
+      # target: /Users/vamsikrishna/prod-backstage/backstage-application/tensure-backstage/catalog/entities/groups.yaml
+
+    - type: url
+      target: https://github.com/VamsiKrishna082/backstage-software-templates/blob/main/template.yaml
+      rules:
+        - allow: [Template]
+
+    ## Uncomment these lines to add more example data
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+
+    ## Uncomment these lines to add an example org
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+    #   rules:
+    #     - allow: [User, Group]
+  # Experimental: Always use the search method in UrlReaderProcessor.
+  # New adopters are encouraged to enable it as this behavior will be the default in a future release.
+  useUrlReadersSearch: true
+
+# kubernetes:
+  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
+
+# see https://backstage.io/docs/permissions/getting-started for more on the permission framework
+permission:
+  # setting this to `false` will disable permissions
+  enabled: true

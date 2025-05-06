@@ -1,0 +1,25 @@
+app:
+  listen:
+    host: 0.0.0.0
+    port: 7007
+  baseUrl: https://backstage.ioinfo.shop
+
+organization:
+  name: Tensure
+
+backend:
+  baseUrl: https://backstage.ioinfo.shop
+  listen:
+    port: 7007
+    host: 0.0.0.0
+
+  # config options: https://node-postgres.com/apis/client
+  database:
+    client: pg
+    connection:
+      host: 35.225.63.118
+      port: 5432
+      user: postgres
+      password: _j?x*pp0-nQP_qw?:SogLSrT@2Ih$qkf
+      
+
