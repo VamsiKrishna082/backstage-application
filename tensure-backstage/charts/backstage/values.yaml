@@ -13,14 +13,14 @@ service:
 ingress:
   enabled: true
   class: gce
-  allowHttp: true
+  allowHttp: "true"
   host: backstage.ioinfo.shop
   annotations:
     kubernetes.io/ingress.class: gce
     kubernetes.io/ingress.allow-http: "true"
     external-dns.alpha.kubernetes.io/hostname: backstage.ioinfo.shop
   tls:
-    enabled: true
+    enabled: "true"
     secretName: backstage-secret
     issuer: backstage-issuer
 
