@@ -1,26 +1,3 @@
-app:
-  title: Tensure Backstage App
-  # baseUrl: http://localhost:7007
-
-organization:
-  name: Tensure Test 
-
-backend:
-  auth:
-    keys:
-      - secret: ${BACKSTAGE_BACKEND_AUTH}
-  # baseUrl: http://localhost:7007
-  listen:
-    port: 7007
-    # Uncomment the following host directive to bind to specific interfaces
-    host: 0.0.0.0
-  csp:
-    connect-src: ["'self'", 'http:', 'https:']
-  # cors:
-  #   origin: https://backstage1.ioinfo.shop
-  #   methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-  #   credentials: true
-
 integrations:
   github:
     - host: github.com
