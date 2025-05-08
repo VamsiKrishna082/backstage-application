@@ -13,13 +13,12 @@ backend:
     port: 7007
     host: 0.0.0.0
 
-  # config options: https://node-postgres.com/apis/client
   database:
     client: pg
     connection:
-      host: 35.225.63.118
+      host: ${BACKSTAGE_DB_CLOUD_SQL_IP}
       port: 5432
-      user: postgres
-      password: _j?x*pp0-nQP_qw?:SogLSrT@2Ih$qkf
+      user: backstage
+      password: ${BACKSTAGE_DB_PASSWORD}
       
 
