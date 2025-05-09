@@ -11,7 +11,7 @@ organization:
 backend:
   auth:
     keys:
-      - secret: ${BACKSTAGE_BACKEND_AUTH}
+      - secret: BCNHCu7pLQ91SKaNwhSa0zEODmSlIKv
   baseUrl: https://backstage1.ioinfo.shop
   listen:
     port: 7007

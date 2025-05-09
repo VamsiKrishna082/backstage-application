@@ -1055,6 +1055,52 @@
       "packageName": "@backstage/backend-plugin-api"
     },
     {
+      "path": "../../node_modules/@backstage/plugin-auth-backend-module-guest-provider/config.d.ts",
+      "value": {
+        "type": "object",
+        "properties": {
+          "auth": {
+            "description": "Configuration options for the auth plugin",
+            "type": "object",
+            "properties": {
+              "providers": {
+                "type": "object",
+                "properties": {
+                  "guest": {
+                    "type": "object",
+                    "properties": {
+                      "userEntityRef": {
+                        "description": "The entity reference to use for the guest user.",
+                        "default": "user:development/guest",
+                        "type": "string"
+                      },
+                      "ownershipEntityRefs": {
+                        "description": "A list of entity references to user for ownership of the guest user if the user\n is not found in the catalog.",
+                        "default": "[userEntityRef]",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "dangerouslyAllowOutsideDevelopment": {
+                        "description": "Allow users to sign in with the guest provider outside of their development environments.",
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "providers"
+            ]
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "packageName": "@backstage/plugin-auth-backend-module-guest-provider"
+    },
+    {
       "path": "../../node_modules/@backstage/plugin-auth-backend/config.d.ts",
       "value": {
         "type": "object",
@@ -1313,52 +1359,6 @@
       "packageName": "@backstage/plugin-auth-backend"
     },
     {
-      "path": "../../node_modules/@backstage/plugin-auth-backend-module-guest-provider/config.d.ts",
-      "value": {
-        "type": "object",
-        "properties": {
-          "auth": {
-            "description": "Configuration options for the auth plugin",
-            "type": "object",
-            "properties": {
-              "providers": {
-                "type": "object",
-                "properties": {
-                  "guest": {
-                    "type": "object",
-                    "properties": {
-                      "userEntityRef": {
-                        "description": "The entity reference to use for the guest user.",
-                        "default": "user:development/guest",
-                        "type": "string"
-                      },
-                      "ownershipEntityRefs": {
-                        "description": "A list of entity references to user for ownership of the guest user if the user\n is not found in the catalog.",
-                        "default": "[userEntityRef]",
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "dangerouslyAllowOutsideDevelopment": {
-                        "description": "Allow users to sign in with the guest provider outside of their development environments.",
-                        "type": "boolean"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "required": [
-              "providers"
-            ]
-          }
-        },
-        "$schema": "http://json-schema.org/draft-07/schema#"
-      },
-      "packageName": "@backstage/plugin-auth-backend-module-guest-provider"
-    },
-    {
       "path": "../../node_modules/@backstage/plugin-permission-common/config.d.ts",
       "value": {
         "type": "object",
@@ -1534,123 +1534,6 @@
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "packageName": "@backstage/frontend-app-api"
-    },
-    {
-      "path": "../../node_modules/@backstage/plugin-auth-backend-module-atlassian-provider/config.d.ts",
-      "value": {
-        "type": "object",
-        "properties": {
-          "auth": {
-            "type": "object",
-            "properties": {
-              "providers": {
-                "type": "object",
-                "properties": {
-                  "atlassian": {
-                    "visibility": "frontend",
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "object",
-                      "properties": {
-                        "clientId": {
-                          "type": "string"
-                        },
-                        "clientSecret": {
-                          "visibility": "secret",
-                          "type": "string"
-                        },
-                        "audience": {
-                          "type": "string"
-                        },
-                        "callbackUrl": {
-                          "type": "string"
-                        },
-                        "additionalScopes": {
-                          "anyOf": [
-                            {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            },
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        },
-                        "signIn": {
-                          "type": "object",
-                          "properties": {
-                            "resolvers": {
-                              "type": "array",
-                              "items": {
-                                "anyOf": [
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "usernameMatchingUserEntityName"
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "emailLocalPartMatchingUserEntityName"
-                                      },
-                                      "allowedDomains": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "emailMatchingUserEntityProfileEmail"
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "resolvers"
-                          ]
-                        },
-                        "sessionDuration": {}
-                      },
-                      "required": [
-                        "clientId",
-                        "clientSecret"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "$schema": "http://json-schema.org/draft-07/schema#"
-      },
-      "packageName": "@backstage/plugin-auth-backend-module-atlassian-provider"
     },
     {
       "path": "../../node_modules/@backstage/plugin-auth-backend-module-auth0-provider/config.d.ts",
@@ -2082,6 +1965,123 @@
       "packageName": "@backstage/plugin-auth-backend-module-gcp-iap-provider"
     },
     {
+      "path": "../../node_modules/@backstage/plugin-auth-backend-module-atlassian-provider/config.d.ts",
+      "value": {
+        "type": "object",
+        "properties": {
+          "auth": {
+            "type": "object",
+            "properties": {
+              "providers": {
+                "type": "object",
+                "properties": {
+                  "atlassian": {
+                    "visibility": "frontend",
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "clientSecret": {
+                          "visibility": "secret",
+                          "type": "string"
+                        },
+                        "audience": {
+                          "type": "string"
+                        },
+                        "callbackUrl": {
+                          "type": "string"
+                        },
+                        "additionalScopes": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "signIn": {
+                          "type": "object",
+                          "properties": {
+                            "resolvers": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "usernameMatchingUserEntityName"
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "emailLocalPartMatchingUserEntityName"
+                                      },
+                                      "allowedDomains": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "emailMatchingUserEntityProfileEmail"
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "resolvers"
+                          ]
+                        },
+                        "sessionDuration": {}
+                      },
+                      "required": [
+                        "clientId",
+                        "clientSecret"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "packageName": "@backstage/plugin-auth-backend-module-atlassian-provider"
+    },
+    {
       "path": "../../node_modules/@backstage/plugin-auth-backend-module-github-provider/config.d.ts",
       "value": {
         "type": "object",
@@ -2197,121 +2197,6 @@
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "packageName": "@backstage/plugin-auth-backend-module-github-provider"
-    },
-    {
-      "path": "../../node_modules/@backstage/plugin-auth-backend-module-google-provider/config.d.ts",
-      "value": {
-        "type": "object",
-        "properties": {
-          "auth": {
-            "description": "Configuration options for the auth plugin",
-            "type": "object",
-            "properties": {
-              "providers": {
-                "type": "object",
-                "properties": {
-                  "google": {
-                    "visibility": "frontend",
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "object",
-                      "properties": {
-                        "clientId": {
-                          "type": "string"
-                        },
-                        "clientSecret": {
-                          "visibility": "secret",
-                          "type": "string"
-                        },
-                        "callbackUrl": {
-                          "type": "string"
-                        },
-                        "additionalScopes": {
-                          "anyOf": [
-                            {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            },
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        },
-                        "signIn": {
-                          "type": "object",
-                          "properties": {
-                            "resolvers": {
-                              "type": "array",
-                              "items": {
-                                "anyOf": [
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "emailMatchingUserEntityAnnotation"
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "emailLocalPartMatchingUserEntityName"
-                                      },
-                                      "allowedDomains": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "resolver": {
-                                        "type": "string",
-                                        "const": "emailMatchingUserEntityProfileEmail"
-                                      }
-                                    },
-                                    "required": [
-                                      "resolver"
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "resolvers"
-                          ]
-                        },
-                        "sessionDuration": {}
-                      },
-                      "required": [
-                        "clientId",
-                        "clientSecret"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "$schema": "http://json-schema.org/draft-07/schema#"
-      },
-      "packageName": "@backstage/plugin-auth-backend-module-google-provider"
     },
     {
       "path": "../../node_modules/@backstage/plugin-auth-backend-module-gitlab-provider/config.d.ts",
@@ -2431,17 +2316,18 @@
       "packageName": "@backstage/plugin-auth-backend-module-gitlab-provider"
     },
     {
-      "path": "../../node_modules/@backstage/plugin-auth-backend-module-oauth2-provider/config.d.ts",
+      "path": "../../node_modules/@backstage/plugin-auth-backend-module-google-provider/config.d.ts",
       "value": {
         "type": "object",
         "properties": {
           "auth": {
+            "description": "Configuration options for the auth plugin",
             "type": "object",
             "properties": {
               "providers": {
                 "type": "object",
                 "properties": {
-                  "oauth2": {
+                  "google": {
                     "visibility": "frontend",
                     "type": "object",
                     "additionalProperties": {
@@ -2454,14 +2340,7 @@
                           "visibility": "secret",
                           "type": "string"
                         },
-                        "authorizationUrl": {
-                          "type": "string"
-                        },
-                        "tokenUrl": {
-                          "type": "string"
-                        },
-                        "scope": {
-                          "deprecated": "use `additionalScopes` instead",
+                        "callbackUrl": {
                           "type": "string"
                         },
                         "additionalScopes": {
@@ -2477,12 +2356,6 @@
                             }
                           ]
                         },
-                        "disableRefresh": {
-                          "type": "boolean"
-                        },
-                        "includeBasicAuth": {
-                          "type": "boolean"
-                        },
                         "signIn": {
                           "type": "object",
                           "properties": {
@@ -2495,7 +2368,7 @@
                                     "properties": {
                                       "resolver": {
                                         "type": "string",
-                                        "const": "usernameMatchingUserEntityName"
+                                        "const": "emailMatchingUserEntityAnnotation"
                                       }
                                     },
                                     "required": [
@@ -2543,10 +2416,8 @@
                         "sessionDuration": {}
                       },
                       "required": [
-                        "authorizationUrl",
                         "clientId",
-                        "clientSecret",
-                        "tokenUrl"
+                        "clientSecret"
                       ]
                     }
                   }
@@ -2557,7 +2428,7 @@
         },
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
-      "packageName": "@backstage/plugin-auth-backend-module-oauth2-provider"
+      "packageName": "@backstage/plugin-auth-backend-module-google-provider"
     },
     {
       "path": "../../node_modules/@backstage/plugin-auth-backend-module-microsoft-provider/config.d.ts",
@@ -3038,6 +2909,135 @@
         "$schema": "http://json-schema.org/draft-07/schema#"
       },
       "packageName": "@backstage/plugin-auth-backend-module-onelogin-provider"
+    },
+    {
+      "path": "../../node_modules/@backstage/plugin-auth-backend-module-oauth2-provider/config.d.ts",
+      "value": {
+        "type": "object",
+        "properties": {
+          "auth": {
+            "type": "object",
+            "properties": {
+              "providers": {
+                "type": "object",
+                "properties": {
+                  "oauth2": {
+                    "visibility": "frontend",
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "clientSecret": {
+                          "visibility": "secret",
+                          "type": "string"
+                        },
+                        "authorizationUrl": {
+                          "type": "string"
+                        },
+                        "tokenUrl": {
+                          "type": "string"
+                        },
+                        "scope": {
+                          "deprecated": "use `additionalScopes` instead",
+                          "type": "string"
+                        },
+                        "additionalScopes": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "disableRefresh": {
+                          "type": "boolean"
+                        },
+                        "includeBasicAuth": {
+                          "type": "boolean"
+                        },
+                        "signIn": {
+                          "type": "object",
+                          "properties": {
+                            "resolvers": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "usernameMatchingUserEntityName"
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "emailLocalPartMatchingUserEntityName"
+                                      },
+                                      "allowedDomains": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "resolver": {
+                                        "type": "string",
+                                        "const": "emailMatchingUserEntityProfileEmail"
+                                      }
+                                    },
+                                    "required": [
+                                      "resolver"
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "resolvers"
+                          ]
+                        },
+                        "sessionDuration": {}
+                      },
+                      "required": [
+                        "authorizationUrl",
+                        "clientId",
+                        "clientSecret",
+                        "tokenUrl"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "packageName": "@backstage/plugin-auth-backend-module-oauth2-provider"
     },
     {
       "path": "../../node_modules/@backstage/backend-defaults/config.d.ts",
